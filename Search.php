@@ -55,7 +55,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Search Cars - Online Car Sale</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -73,23 +78,40 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 100;
         }
 
         .logo {
             font-size: 24px;
             font-weight: bold;
             color: #38bdf8;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            position: relative;
+            z-index: 200;
         }
 
         .nav-links a {
             color: white;
             text-decoration: none;
-            margin-left: 24px;
             font-size: 15px;
+            display: inline-block;
+            padding: 10px 14px;
+            border-radius: 8px;
+            position: relative;
+            z-index: 300;
+            cursor: pointer;
         }
 
         .nav-links a:hover {
             color: #38bdf8;
+            background: rgba(56, 189, 248, 0.12);
         }
 
         .hero {
@@ -116,6 +138,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             padding: 30px;
             border-radius: 16px;
             box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+            position: relative;
+            z-index: 1;
         }
 
         .form-grid {
@@ -220,8 +244,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 gap: 12px;
             }
 
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+
             .nav-links a {
-                margin: 0 8px;
+                padding: 8px 10px;
+                font-size: 14px;
             }
 
             .hero h1 {
@@ -244,11 +275,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <header>
     <nav>
         <div class="logo">Online Car Sale</div>
+
         <div class="nav-links">
             <a href="Homepage.html">Homepage</a>
             <a href="Registration.php">Registration</a>
             <a href="Login.php">Login</a>
-            <a href="AddCar.php">Add Car</a>
+            <a href="Addcar.php">Add Car</a>
             <a href="Search.php">Search</a>
         </div>
     </nav>
@@ -302,6 +334,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="car-grid">
                 <?php foreach ($cars as $car): ?>
                     <div class="car-card">
+                        <img 
+                            src="<?php echo htmlspecialchars($car['image_url'] ?? ''); ?>" 
+                            alt="Car Image"
+                            style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-bottom:15px;"
+                        >
                         <h3>
                             <?php echo htmlspecialchars($car["brand"] ?? "Unknown Brand"); ?>
                             <?php echo htmlspecialchars($car["model"] ?? "Unknown Model"); ?>
